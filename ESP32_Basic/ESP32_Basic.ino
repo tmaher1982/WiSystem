@@ -49,5 +49,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+  // This reaads the http requests and sends them to the handler function
+  server.handleClient();
 
 }
