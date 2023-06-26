@@ -36,7 +36,15 @@ void handleCapture()
 
 void setup() {
   // put your setup code here, to run once:
-
+  auto res=esp32cam::Resolution::find(1023,768);
+  esp32cam::Config cfg;
+  cfg.setPins(esp32cam::pins:AiThinker); // This sets the pin configuration to AiThinker profile
+  cfg.setResolution(res); // for resolution
+  cfg.setJpeg(80); // for image quality
+  esp32cam::Camera(begin(cfg); // Starts the camera module
+  WiFi.softAP(AP_SSID, AP_PASS); // starts the wifi access point
+  server.on("/capture.jpg", handleCapture); // This sets the camera capture to that handler "/capture.jog" and sends it as a response when requested from a browser
+  server.begin();
 }
 
 void loop() {
