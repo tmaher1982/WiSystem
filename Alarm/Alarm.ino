@@ -15,7 +15,13 @@ const int red_led_pin = D2;
 const int green_led_pin = D3;
 const int blue_led_pin = D4;
 
-bool wild = true;
+
+ // Buzzer
+ const int buzzer_pin = D5;
+ int signaled = false;
+
+ 
+bool wild = false;
 
 void setup() {
   // put your setup code here, to run once:
@@ -27,6 +33,14 @@ void setup() {
   pinMode(red_led_pin, OUTPUT);
   pinMode(green_led_pin, OUTPUT);
   pinMode(blue_led_pin, OUTPUT);
+
+
+  // Buzzer
+  // Set the buzzer to OUTPUT
+  pinMode(buzzer_pin, OUTPUT);
+  //No sound to start with 
+  digitalWrite(buzzer_pin, LOW);
+
   
   // Start the serial to debug the values
   Serial.begin(9600);
@@ -83,7 +97,7 @@ bool isWild()
 void AlertSystemOn()
 {
   // turn on buzzer
-
+  turnBuzzerOn();
 
 
  // turn red light on 
@@ -96,7 +110,7 @@ void SafeOn()
 {
 
   // turn off buzzer
-
+  turnBuzzerOff();
 
   // turn green light on 
   rgbLed(0,255,0);
@@ -116,5 +130,22 @@ void rgbLed(int red_led_amount, int green_led_amount , int blue_led_amount)
 }
 
 
+// trun buzzer on when wild
+void turnBuzzerOn()
+{
+  tone(buzzer_pin, 1000);
+  delay(2000);
+  noTone(buzzer_pin);
+  signaled = true; 
+}
+
+
+// turn buzzer off when safe
+void turnBuzzerOff()
+{
+  noTone(buzzer_pin);
+  signaled = false;
+  
+}
 
 // add utility function here to read the status of the wild animal
