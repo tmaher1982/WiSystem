@@ -1,6 +1,6 @@
 // Include the libraries for the camera, server and wifi
 
-#include "esp32cam.h"
+#include <esp32cam.h>
 #include <WebServer.h>
 #include <WiFi.h>
 

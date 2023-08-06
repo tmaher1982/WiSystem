@@ -21,7 +21,7 @@ const int blue_led_pin = D4;
  int signaled = false;
 
  
-bool wild = false;
+bool wild = true;
 
 void setup() {
   // put your setup code here, to run once:
