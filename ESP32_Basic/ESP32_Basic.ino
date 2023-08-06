@@ -19,8 +19,17 @@ WebServer server(80);
 // This is the request handler to handle captured images
 void handleCapture()
 {
+  // For flash 
+  digitalWrite(4, HIGH);
+  delay(250);
+
+  
   // This captures an image
   auto img = esp32cam::capture();
+  
+  // Turn off the flash after capturing the image
+  digitalWrite(4, LOW);
+  
   if (img == nullptr)
   {
     server.send(500, "", ""); // 500 is a generic internal server code fif an error happens 
@@ -35,6 +44,9 @@ void handleCapture()
   }
 
 void setup() {
+  // For Flash
+  pinMode(4, OUTPUT);
+  
   // put your setup code here, to run once:
   auto res=esp32cam::Resolution::find(1024,768);
   esp32cam::Config cfg;
