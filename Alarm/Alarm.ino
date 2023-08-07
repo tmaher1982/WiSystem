@@ -1,6 +1,8 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
 
+#include <ArduinoJson.h>
+
 
 // Set the PORT for the web server
 ESP8266WebServer server(80);
@@ -21,7 +23,7 @@ const int blue_led_pin = D4;
  int signaled = false;
 
  
-bool wild = true;
+bool wild = false;  // defaulting to false 
 
 void setup() {
   // put your setup code here, to run once:
@@ -56,6 +58,15 @@ void setup() {
   Serial.println(WiFi.localIP());
 
   // add here something for the LED detection / index page or so 
+
+  server.on("/setWildStatus", setWildStatus); // Get the wild animal status
+  // if the animal is a wild animal , call this with http://ip/setWildStatus?s=1 and this turns wild to true
+  // if the animal is not a wild animal , call this with http://ip/setWildStatus?s=0 and this turns wild to false
+  // For my testing , I reserved the mac address of the ESP8266 on my router and the ip will always be 192.168.0.187
+  // so the call will be :-
+  // http://192.168.0.187/setWildStatus?s=1 to turn the alarm on , and set wild status to true
+  // and http://192.168.0.187/setWildStatus?s=0 to turn the alarm off , and set the wild status to off
+   
   
   server.begin(); // Start the server
   Serial.println("Server listening");
@@ -149,3 +160,25 @@ void turnBuzzerOff()
 }
 
 // add utility function here to read the status of the wild animal
+
+void setWildStatus() {
+  // Utility function to pass the status of the wild animal and will be called from the AI engine based on the analytics
+  int query_string = 0;
+  if (server.arg("s") != "") { // Parameter found
+    // Parse the value from the query
+    query_string = server.arg("s").toInt();
+
+    // Check the value and update the wild variable accordingly
+    if (query_string == 1)
+    {
+      wild = true;
+    }
+    else 
+    {
+      wild = false;
+    }
+ }
+  
+  
+  
+  }
