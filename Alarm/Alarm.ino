@@ -57,7 +57,7 @@ void setup() {
   Serial.print("IP address:" );
   Serial.println(WiFi.localIP());
 
-  // add here something for the LED detection / index page or so 
+  
 
   server.on("/setWildStatus", setWildStatus); // Get the wild animal status
   // if the animal is a wild animal , call this with http://ip/setWildStatus?s=1 and this turns wild to true
