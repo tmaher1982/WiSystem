@@ -7,10 +7,13 @@
 
 // set the SSID and PASS for the ESP32 module , as a wifi accesspoint to use instead of using a router
 
-#define AP_SSID "Wi_System_ESP"
-#define AP_PASS "PSE_metsyS-iW"
+// #define AP_SSID "Wi_System_ESP"
+// #define AP_PASS "PSE_metsyS-iW"
 
-
+// Connecting to the router
+const char* WIFI_SSID = "WI_Router";
+const char* WIFI_PASS = "retouR_IW";
+ 
 // Create an instance of the webserver at port 80
 
 WebServer server(80);
@@ -44,6 +47,11 @@ void handleCapture()
   }
 
 void setup() {
+
+  // Connect to the router
+  WiFi.begin(WIFI_SSID, WIFI_PASS);
+
+  
   // For Flash
   pinMode(4, OUTPUT);
   
@@ -54,7 +62,10 @@ void setup() {
   cfg.setResolution(res); // for resolution
   cfg.setJpeg(80); // for image quality
   esp32cam::Camera.begin(cfg); // Starts the camera module
-  WiFi.softAP(AP_SSID, AP_PASS); // starts the wifi access point
+
+  // Cancelling the access point at the moment
+  // WiFi.softAP(AP_SSID, AP_PASS); // starts the wifi access point
+  
   server.on("/capture.jpg", handleCapture); // This sets the camera capture to that handler "/capture.jog" and sends it as a response when requested from a browser
   server.begin();
 }
