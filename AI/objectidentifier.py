@@ -8,8 +8,8 @@ import concurrent.futures
  
 
 # Change this URL based on the ip address granted to the ESP32 cam webserver 
-url='http://192.168.0.130/cam-hi.jpg'
-
+#url='http://192.168.0.130/cam-hi.jpg'
+url='http://192.168.0.130/capture.jpg'
 
 im=None
  
