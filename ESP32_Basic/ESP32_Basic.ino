@@ -1,3 +1,9 @@
+// Code inspired from https://github.com/yoursunny/esp32cam
+// I did necessary changes to perform the logic I needed which is different from the original code
+// My code connects the module to a router instead of making it a hotspot
+// Also saves an image in a capture.jpg on webserver that is fetched later by the AI module
+
+
 // Include the libraries for the camera, server and wifi
 
 #include <esp32cam.h>

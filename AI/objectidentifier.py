@@ -1,3 +1,6 @@
+# Code inspired from https://how2electronics.com/esp32-cam-based-object-detection-identification-with-opencv/
+# I made multiple changes and added new methods to perform the intended logic
+
 import cv2
 import matplotlib.pyplot as plt
 import cvlib as cv
@@ -12,6 +15,7 @@ import webbrowser
 
 
 # Change this URL based on the ip address granted to the ESP32 cam webserver 
+# On my router I made mac address reservatinos for the different modules as below
 
 url='http://192.168.0.130/capture.jpg'
 alert_url = 'http://192.168.0.187/setWildStatus?s=1'
